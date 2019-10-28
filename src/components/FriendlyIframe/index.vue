@@ -1,5 +1,6 @@
 <template>
 <div class="vue-friendly-iframe">
+  <iframe ref="iframeEl" :style="iframeStyle"/>
 </div>
 </template>
 
@@ -52,11 +53,14 @@ export default {
     scrolling: {
       type: String,
       required: false
+    },
+    iframeStyle: {
+      type: Object,
+      required: false
     }
   },
   data() {
     return {
-      iframeEl: null,
       iframeLoadedMessage: `IFRAME_LOADED_${generateGuid()}`,
       iframeOnReadyStateChangeMessage: `IFRAME_ON_READ_STATE_CHANGE_${generateGuid()}`
     };
@@ -96,12 +100,16 @@ export default {
       vm.initIframe();
     }, 200),
     initIframe() {
-      this.iframeEl = document.createElement('iframe');
-      this.iframeEl.setAttribute('iframe-src', this.src);
-      this.iframeEl.setAttribute('crossorigin', this.crossorigin);
-      this.iframeEl.setAttribute('target', this.target);
-      this.iframeEl.setAttribute('style', 'visibility: hidden; position: absolute; top: -99999px');
-      if (this.className) this.iframeEl.setAttribute('class', this.className);
+      var iframeEl = this.$refs.iframeEl
+      iframeEl.setAttribute('iframe-src', this.src);
+      iframeEl.setAttribute('crossorigin', this.crossorigin);
+      iframeEl.setAttribute('target', this.target);
+      if (this.style) {
+        this.iframe.setAttribute
+      } else {
+        this.iframeEl.setAttribute('style', 'visibility: hidden; position: absolute; top: -99999px');
+      } 
+      if (this.className) iframeEl.setAttribute('class', this.className);
       if (this.class) this.iframeEl.setAttribute('class', this.class);
       if (this.frameborder) this.iframeEl.setAttribute('frameborder', this.frameborder);
       if (this.gesture) this.iframeEl.setAttribute('gesture', this.gesture);
